@@ -1,18 +1,4 @@
-// Tetris Game with Multi-Agent Stage Support
-// Agent Stages: Development, Testing, Staging, Production
-
-// Game Configuration based on Agent Stage
-const AGENT_CONFIGS = {
-    development: {
-        name: 'Development',
-        speed: 800,
-        features: 'All debugging enabled, slower speed',
-        status: 'DEV',
-        statusClass: 'status-dev',
-        debugMode: true,
-        showGrid: true
-    }
-};
+// Tetris Game
 
 // Game Constants
 const COLS = 10;
@@ -51,7 +37,7 @@ let lines = 0;
 let gameRunning = false;
 let gamePaused = false;
 let gameLoop = null;
-let dropSpeed = AGENT_CONFIGS.development.speed;
+let dropSpeed = 500;
 
 // Initialize Game
 function init() {
@@ -68,11 +54,7 @@ function init() {
     document.getElementById('pauseBtn').addEventListener('click', togglePause);
     document.getElementById('resetBtn').addEventListener('click', resetGame);
     document.getElementById('restartBtn').addEventListener('click', restartGame);
-    document.getElementById('agentStage').addEventListener('change', changeAgentStage);
     document.addEventListener('keydown', handleKeyPress);
-    
-    // Initialize agent stage display
-    updateAgentStageDisplay();
     
     // Draw initial empty board
     drawBoard();
@@ -249,8 +231,8 @@ function clearLines() {
         score += linesCleared * 100 * level;
         level = Math.floor(lines / 10) + 1;
         
-        // Adjust speed based on level and agent stage
-        dropSpeed = Math.max(100, 800 - (level - 1) * 50);
+        // Adjust speed based on level
+        dropSpeed = Math.max(100, 500 - (level - 1) * 50);
         
         if (gameRunning && !gamePaused) {
             clearInterval(gameLoop);
@@ -396,33 +378,6 @@ function handleKeyPress(e) {
             togglePause();
             break;
     }
-}
-
-// Agent Stage Management
-function changeAgentStage() {
-    const stage = document.getElementById('agentStage').value;
-    const config = AGENT_CONFIGS[stage] || AGENT_CONFIGS.development;
-    
-    dropSpeed = config.speed;
-    
-    if (gameRunning && !gamePaused) {
-        clearInterval(gameLoop);
-        gameLoop = setInterval(gameStep, dropSpeed);
-    }
-    
-    updateAgentStageDisplay();
-}
-
-function updateAgentStageDisplay() {
-    const stage = document.getElementById('agentStage').value;
-    const config = AGENT_CONFIGS[stage] || AGENT_CONFIGS.development;
-    
-    document.getElementById('currentStage').textContent = config.name;
-    document.getElementById('stageFeatures').textContent = config.features;
-    
-    const statusBadge = document.getElementById('stageStatus');
-    statusBadge.textContent = config.status;
-    statusBadge.className = 'status-badge ' + config.statusClass;
 }
 
 // Initialize game when page loads

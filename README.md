@@ -1,38 +1,15 @@
-# 🎮 Tetris Game - Multi-Agent Testing Environment
+# 🎮 Tetris Game
 
-A modern, responsive Tetris game built with vanilla JavaScript, featuring a multi-agent stage system for development, testing, staging, and production environments.
+A modern, responsive Tetris game built with vanilla JavaScript.
 
 ## 🌟 Features
 
 - **Classic Tetris Gameplay**: All 7 tetromino pieces with rotation and movement
-- **Multi-Agent Stages**: Switch between Development, Testing, Staging, and Production modes
 - **Responsive Design**: Works on desktop and mobile devices
 - **Score System**: Track your score, level, and lines cleared
 - **Next Piece Preview**: See what's coming next
 - **Keyboard Controls**: Full keyboard support for gameplay
 - **Beautiful UI**: Modern gradient design with smooth animations
-
-## 🎯 Agent Stages
-
-### Development Stage
-- **Speed**: 800ms (slower for testing)
-- **Features**: Full debugging, grid overlay, verbose logging
-- **Use Case**: Initial development and feature testing
-
-### Testing Stage
-- **Speed**: 600ms (moderate)
-- **Features**: Validation enabled, performance monitoring
-- **Use Case**: QA testing and bug verification
-
-### Staging Stage
-- **Speed**: 500ms (normal)
-- **Features**: Production-like environment, optimized
-- **Use Case**: Pre-production validation
-
-### Production Stage
-- **Speed**: 400ms (fastest)
-- **Features**: Fully optimized, error logging only
-- **Use Case**: Live deployment
 
 ## 🎮 Controls
 
@@ -105,22 +82,10 @@ git push -u origin main
 tetris/
 ├── index.html          # Main HTML file
 ├── styles.css          # Styling and responsive design
-├── app.js              # Game logic and agent stage management
+├── app.js              # Game logic
 ├── README.md           # This file
-├── .bob/
-│   └── agents.json     # Agent stage configurations
 └── assets/             # Future assets (images, sounds, etc.)
 ```
-
-## 🔧 Configuration
-
-Agent stages are configured in `.bob/agents.json`. Each stage includes:
-
-- **Game Speed**: Drop interval in milliseconds
-- **Debug Mode**: Enable/disable debugging features
-- **Grid Display**: Show/hide alignment grid
-- **Log Level**: Verbosity of console output
-- **Testing Configuration**: Test suite settings
 
 ## 🎨 Customization
 
@@ -138,24 +103,10 @@ const COLORS = [
 
 ### Adjusting Difficulty
 
-Modify agent stage speeds in `app.js`:
+Modify the initial drop speed in `app.js`:
 ```javascript
-const AGENT_CONFIGS = {
-    development: {
-        speed: 800, // Change this value
-        // ...
-    }
-};
+let dropSpeed = 500; // Change this value (in milliseconds)
 ```
-
-## 🧪 Testing
-
-The project includes configurations for different testing stages:
-
-- **Unit Tests**: Test individual game functions
-- **Integration Tests**: Test component interactions
-- **E2E Tests**: Test complete user workflows
-- **Performance Tests**: Measure game performance
 
 ## 📊 Scoring System
 
@@ -182,7 +133,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - Classic Tetris game design by Alexey Pajitnov
 - Built with vanilla JavaScript for maximum compatibility
-- Designed for GitHub Pages deployment
 
 ## 📧 Contact
 
