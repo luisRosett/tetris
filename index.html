@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game - Agent Testing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Tetris Game</h1>
+            <p class="subtitle">Multi-Agent Testing Environment</p>
+        </header>
+
+        <div class="game-wrapper">
+            <div class="side-panel left-panel">
+                <div class="panel-section">
+                    <h3>Next Piece</h3>
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
+                </div>
+                <div class="panel-section">
+                    <h3>Agent Stage</h3>
+                    <select id="agentStage" class="agent-selector">
+                        <option value="development">Development</option>
+                        <option value="testing">Testing</option>
+                        <option value="staging">Staging</option>
+                        <option value="production">Production</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="game-container">
+                <canvas id="gameCanvas" width="300" height="600"></canvas>
+                <div id="gameOver" class="game-over hidden">
+                    <h2>Game Over!</h2>
+                    <p>Score: <span id="finalScore">0</span></p>
+                    <button id="restartBtn" class="btn">Play Again</button>
+                </div>
+            </div>
+
+            <div class="side-panel right-panel">
+                <div class="panel-section">
+                    <h3>Score</h3>
+                    <div class="score-display" id="score">0</div>
+                </div>
+                <div class="panel-section">
+                    <h3>Level</h3>
+                    <div class="level-display" id="level">1</div>
+                </div>
+                <div class="panel-section">
+                    <h3>Lines</h3>
+                    <div class="lines-display" id="lines">0</div>
+                </div>
+                <div class="panel-section">
+                    <h3>Controls</h3>
+                    <div class="controls-info">
+                        <p>← → Move</p>
+                        <p>↑ Rotate</p>
+                        <p>↓ Soft Drop</p>
+                        <p>Space Hard Drop</p>
+                        <p>P Pause</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="startBtn" class="btn btn-primary">Start Game</button>
+            <button id="pauseBtn" class="btn" disabled>Pause</button>
+            <button id="resetBtn" class="btn">Reset</button>
+        </div>
+
+        <div class="agent-info">
+            <h3>Agent Stage Information</h3>
+            <div id="agentDetails" class="agent-details">
+                <p><strong>Current Stage:</strong> <span id="currentStage">Development</span></p>
+                <p><strong>Features:</strong> <span id="stageFeatures">All debugging enabled, slower speed</span></p>
+                <p><strong>Status:</strong> <span id="stageStatus" class="status-badge status-dev">DEV</span></p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with ❤️ for GitHub Pages | Multi-Agent Testing Framework</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

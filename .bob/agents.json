@@ -1,0 +1,139 @@
+{
+  "agents": {
+    "development": {
+      "name": "Development Agent",
+      "description": "Development environment with debugging enabled and slower game speed for testing",
+      "stage": "development",
+      "config": {
+        "gameSpeed": 800,
+        "debugMode": true,
+        "showGrid": true,
+        "logLevel": "verbose",
+        "features": [
+          "Full debugging output",
+          "Grid overlay for alignment",
+          "Slower game speed",
+          "Console logging enabled",
+          "Error tracking"
+        ]
+      },
+      "testing": {
+        "unitTests": true,
+        "integrationTests": true,
+        "e2eTests": false
+      }
+    },
+    "testing": {
+      "name": "Testing Agent",
+      "description": "Testing environment with validation and moderate speed",
+      "stage": "testing",
+      "config": {
+        "gameSpeed": 600,
+        "debugMode": true,
+        "showGrid": false,
+        "logLevel": "info",
+        "features": [
+          "Validation enabled",
+          "Moderate game speed",
+          "Performance monitoring",
+          "Test coverage tracking",
+          "Bug reporting"
+        ]
+      },
+      "testing": {
+        "unitTests": true,
+        "integrationTests": true,
+        "e2eTests": true,
+        "performanceTests": true
+      }
+    },
+    "staging": {
+      "name": "Staging Agent",
+      "description": "Pre-production environment with production-like settings",
+      "stage": "staging",
+      "config": {
+        "gameSpeed": 500,
+        "debugMode": false,
+        "showGrid": false,
+        "logLevel": "warn",
+        "features": [
+          "Production-like environment",
+          "Normal game speed",
+          "Error logging only",
+          "Performance optimized",
+          "Final validation"
+        ]
+      },
+      "testing": {
+        "unitTests": true,
+        "integrationTests": true,
+        "e2eTests": true,
+        "performanceTests": true,
+        "securityTests": true
+      }
+    },
+    "production": {
+      "name": "Production Agent",
+      "description": "Production environment with full optimization and fastest speed",
+      "stage": "production",
+      "config": {
+        "gameSpeed": 400,
+        "debugMode": false,
+        "showGrid": false,
+        "logLevel": "error",
+        "features": [
+          "Fully optimized",
+          "Maximum game speed",
+          "Error logging only",
+          "Production monitoring",
+          "Analytics enabled"
+        ]
+      },
+      "testing": {
+        "unitTests": false,
+        "integrationTests": false,
+        "e2eTests": false,
+        "performanceTests": false,
+        "securityTests": false,
+        "monitoring": true
+      }
+    }
+  },
+  "workflows": {
+    "development_to_testing": {
+      "description": "Promote from development to testing",
+      "steps": [
+        "Run unit tests",
+        "Code review",
+        "Update agent stage to testing",
+        "Verify functionality"
+      ]
+    },
+    "testing_to_staging": {
+      "description": "Promote from testing to staging",
+      "steps": [
+        "Run all tests",
+        "Performance validation",
+        "Update agent stage to staging",
+        "Final QA check"
+      ]
+    },
+    "staging_to_production": {
+      "description": "Deploy to production",
+      "steps": [
+        "Security audit",
+        "Load testing",
+        "Backup current production",
+        "Update agent stage to production",
+        "Monitor deployment"
+      ]
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-04-08",
+    "project": "Tetris Game",
+    "framework": "Vanilla JavaScript",
+    "deployment": "GitHub Pages"
+  }
+}
