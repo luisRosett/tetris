@@ -11,33 +11,6 @@ const AGENT_CONFIGS = {
         statusClass: 'status-dev',
         debugMode: true,
         showGrid: true
-    },
-    testing: {
-        name: 'Testing',
-        speed: 600,
-        features: 'Testing mode, moderate speed, validation enabled',
-        status: 'TEST',
-        statusClass: 'status-test',
-        debugMode: true,
-        showGrid: false
-    },
-    staging: {
-        name: 'Staging',
-        speed: 500,
-        features: 'Pre-production environment, normal speed',
-        status: 'STAGING',
-        statusClass: 'status-staging',
-        debugMode: false,
-        showGrid: false
-    },
-    production: {
-        name: 'Production',
-        speed: 400,
-        features: 'Production mode, full speed, optimized',
-        status: 'PROD',
-        statusClass: 'status-prod',
-        debugMode: false,
-        showGrid: false
     }
 };
 
@@ -78,7 +51,6 @@ let lines = 0;
 let gameRunning = false;
 let gamePaused = false;
 let gameLoop = null;
-let currentAgentStage = 'development';
 let dropSpeed = AGENT_CONFIGS.development.speed;
 
 // Initialize Game
@@ -107,34 +79,6 @@ function init() {
     drawNextPiece();
 }
 
-// Agent Stage Management
-function changeAgentStage(e) {
-    currentAgentStage = e.target.value;
-    dropSpeed = AGENT_CONFIGS[currentAgentStage].speed;
-    updateAgentStageDisplay();
-    
-    if (AGENT_CONFIGS[currentAgentStage].debugMode) {
-        console.log(`Agent Stage Changed: ${AGENT_CONFIGS[currentAgentStage].name}`);
-        console.log(`Speed: ${dropSpeed}ms, Debug: ${AGENT_CONFIGS[currentAgentStage].debugMode}`);
-    }
-    
-    // Restart game loop with new speed if game is running
-    if (gameRunning && !gamePaused) {
-        clearInterval(gameLoop);
-        gameLoop = setInterval(gameStep, dropSpeed);
-    }
-}
-
-function updateAgentStageDisplay() {
-    const config = AGENT_CONFIGS[currentAgentStage];
-    document.getElementById('currentStage').textContent = config.name;
-    document.getElementById('stageFeatures').textContent = config.features;
-    
-    const statusBadge = document.getElementById('stageStatus');
-    statusBadge.textContent = config.status;
-    statusBadge.className = `status-badge ${config.statusClass}`;
-}
-
 // Game Logic
 function startGame() {
     if (gameRunning) return;
@@ -153,10 +97,6 @@ function startGame() {
     updateScore();
     spawnPiece();
     gameLoop = setInterval(gameStep, dropSpeed);
-    
-    if (AGENT_CONFIGS[currentAgentStage].debugMode) {
-        console.log('Game Started in ' + AGENT_CONFIGS[currentAgentStage].name + ' mode');
-    }
 }
 
 function togglePause() {
@@ -310,8 +250,7 @@ function clearLines() {
         level = Math.floor(lines / 10) + 1;
         
         // Adjust speed based on level and agent stage
-        const baseSpeed = AGENT_CONFIGS[currentAgentStage].speed;
-        dropSpeed = Math.max(100, baseSpeed - (level - 1) * 50);
+        dropSpeed = Math.max(100, 800 - (level - 1) * 50);
         
         if (gameRunning && !gamePaused) {
             clearInterval(gameLoop);
@@ -319,10 +258,6 @@ function clearLines() {
         }
         
         updateScore();
-        
-        if (AGENT_CONFIGS[currentAgentStage].debugMode) {
-            console.log(`Lines cleared: ${linesCleared}, Total: ${lines}, Level: ${level}`);
-        }
     }
 }
 
@@ -349,9 +284,8 @@ function gameOver() {
     document.getElementById('startBtn').disabled = false;
     document.getElementById('pauseBtn').disabled = true;
     
-    if (AGENT_CONFIGS[currentAgentStage].debugMode) {
-        console.log(`Game Over - Score: ${score}, Lines: ${lines}, Level: ${level}`);
-    }
+    console.log(`Game Over - Score: ${score}, Lines: ${lines}, Level: ${level}`);
+    
 }
 
 // Drawing Functions
@@ -359,24 +293,6 @@ function drawBoard() {
     // Clear canvas
     ctx.fillStyle = '#1a1a2e';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw grid if in debug mode
-    if (AGENT_CONFIGS[currentAgentStage].showGrid) {
-        ctx.strokeStyle = '#2a2a3e';
-        ctx.lineWidth = 1;
-        for (let x = 0; x <= COLS; x++) {
-            ctx.beginPath();
-            ctx.moveTo(x * BLOCK_SIZE, 0);
-            ctx.lineTo(x * BLOCK_SIZE, ROWS * BLOCK_SIZE);
-            ctx.stroke();
-        }
-        for (let y = 0; y <= ROWS; y++) {
-            ctx.beginPath();
-            ctx.moveTo(0, y * BLOCK_SIZE);
-            ctx.lineTo(COLS * BLOCK_SIZE, y * BLOCK_SIZE);
-            ctx.stroke();
-        }
-    }
     
     // Draw board
     for (let y = 0; y < ROWS; y++) {
