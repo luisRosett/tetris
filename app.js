@@ -398,6 +398,33 @@ function handleKeyPress(e) {
     }
 }
 
+// Agent Stage Management
+function changeAgentStage() {
+    const stage = document.getElementById('agentStage').value;
+    const config = AGENT_CONFIGS[stage] || AGENT_CONFIGS.development;
+    
+    dropSpeed = config.speed;
+    
+    if (gameRunning && !gamePaused) {
+        clearInterval(gameLoop);
+        gameLoop = setInterval(gameStep, dropSpeed);
+    }
+    
+    updateAgentStageDisplay();
+}
+
+function updateAgentStageDisplay() {
+    const stage = document.getElementById('agentStage').value;
+    const config = AGENT_CONFIGS[stage] || AGENT_CONFIGS.development;
+    
+    document.getElementById('currentStage').textContent = config.name;
+    document.getElementById('stageFeatures').textContent = config.features;
+    
+    const statusBadge = document.getElementById('stageStatus');
+    statusBadge.textContent = config.status;
+    statusBadge.className = 'status-badge ' + config.statusClass;
+}
+
 // Initialize game when page loads
 window.addEventListener('load', init);
 
